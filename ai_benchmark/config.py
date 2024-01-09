@@ -48,8 +48,7 @@ class Test:
 
 class TestConstructor:
 
-    def getTests(self, batch_mul=1):
-
+    def getTests(self, batch_mul=1,model=""):
         benchmark_tests = [
 
             Test(test_id=1, test_type="classification", model="MobileNet-V2", model_src="mobilenet_v2.meta",
@@ -196,5 +195,9 @@ class TestConstructor:
                  tests_micro=[])
 
         ]
-
+        model_map = {test.model: test for test in benchmark_tests}
+        if model in model_map:
+            model_object = model_map[model]
+            benchmark_tests_new = [ model_object ]
+            return benchmark_tests_new
         return benchmark_tests
